@@ -1,13 +1,5 @@
 {
-  "version": 2,
-  "rootDirectory": ".",
   "framework": "nextjs",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm run build",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ]
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install"
 }
