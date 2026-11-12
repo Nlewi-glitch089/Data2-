@@ -1,217 +1,96 @@
-Agentic Data Quality Analysis Platform
-Project Name: agentic-data-quality-analysis-platform Target Competency: CCC.1 Develop Technology Solutions (Level 10) Duration: 10 days Skill Level: beginner
+# Agentic Data Quality Analysis Platform
 
-Overview
-Business users and data analysts need an intuitive way to understand and improve their dataset quality without requiring deep technical expertise. Current solutions are either too complex for business users or lack intelligent insights about data quality issues.
+A Next.js application for inspecting uploaded datasets and surfacing data-quality issues. Users can upload CSV, JSON, or Excel files, preview the parsed data, review quality metrics, and request AI-generated recommendations.
 
-This project will help you build a complete AI-powered data quality analysis platform using Next.js while demonstrating Level 10 competency in the CCC.1 framework.
+## Current implementation
 
-Features
-File Upload & Processing: Support for CSV, JSON, and Excel files with secure client-side processing
-Automated Quality Analysis: Statistical analysis identifying missing values, outliers, inconsistencies, and duplicates
-AI-Powered Insights: Natural language explanations of data quality issues and improvement recommendations
-Interactive Dashboards: Visual representation of quality metrics and trends
-Export & Sharing: Professional reports and actionable recommendations
-Tech Stack
-Frontend: React 18 + Next.js 14 (JavaScript, NO TypeScript)
-Language: JavaScript ES6+ (.jsx, .js files)
-Bundler: Turbopack
-Routing: Next.js App Router
-Data Processing: Papa Parse (CSV/JSON parsing)
-AI Integration: OpenAI API v4+
-Styling: CSS3 with CSS Custom Properties (NO Tailwind - custom CSS files)
-Charts: Chart.js + react-chartjs-2
-Testing: Vitest + React Testing Library (JavaScript)
-Storage: Client-side only (sessionStorage for security)
-Why JavaScript + CSS? This project uses vanilla JavaScript and custom CSS3 to help you learn fundamental web development skills that transfer to any framework. You'll understand the cascade, specificity, CSS Grid, Flexbox, and modern JavaScript without framework-specific abstractions.
+- Upload a CSV, JSON, or Excel file (up to 50 MB).
+- Parse the file in the browser and store the current dataset in session storage for the preview/analysis flow.
+- Calculate quality metrics such as missing values, duplicates, outliers, and formatting issues.
+- Display data-quality results and visual summaries.
+- Request AI-generated insights through a Next.js server route.
 
-Getting Started
-Review start_here.md for pre-development checklist
-Read the problem statement
-Review project scope (CCC.1 Level 10 format)
-Follow setup instructions
-Begin with Milestone 1
-Project Structure
-agentic-data-quality-analysis-platform/
-├── README.md                          # This file
-├── CLAUDE.md                          # AI assistant context
-├── .gitignore                         # Git ignore rules
-├── start_here.md                      # Student onboarding
-├── JAVASCRIPT_CSS_MIGRATION_GUIDE.md  # TypeScript→JavaScript conversion guide
-├── SKILLS_MAPPING.md                  # Technical skills breakdown
-├── overview.md                        # High-level overview
-├── 00-problem.md                      # Problem statement
-├── 01-project-scope.md                # CCC.1 Level 10 scope
-├── 02-wireframes-overview.md          # UI/UX design guide
-├── 03-trello-project-board-guide.md   # Agile board setup
-├── 04-SETUP_INSTRUCTIONS.md           # Setup & deployment
-├── project-requirements-scope.md      # Fillable template
-├── TODO.md                            # Project checklist
-│
-├── milestone/
-│   ├── Milestone1/m1.md              # Sprint 1: Next.js + CSS setup
-│   ├── Milestone2/m2.md              # Sprint 2: Data analysis engine
-│   ├── Milestone3/m3.md              # Sprint 3: AI insights + charts
-│   └── Milestone4/m4.md              # Sprint 4: Testing + deployment
-│
-├── img/                               # Wireframes
-│   ├── Step-0.png
-│   ├── Step-1.png
-│   └── ...
-│
-├── learn-more/
-│   └── resources.md                   # Learning resources
-│
-├── tech-skills/
-│   └── [skill guides]                 # JavaScript, CSS, React tutorials
-│
-├── facilitation-guide/
-│   ├── project-schedule.md
-│   ├── example-week.md
-│   ├── micro-milestones.md
-│   └── term-example.md
-│
-└── business-case/
-    ├── oral-defense-rubric.md
-    ├── oral-defense-presentation-template.md
-    ├── incentive-requirements.md
-    └── canva-presentation-design-guide.md
-Project File Structure
-When you complete this project, your application will have this structure:
+The upload flow is implemented in `app/page.jsx`; file parsing and analysis logic live in `app/lib/`. The AI insights endpoint is in `app/api/insights/route.js`.
 
-your-project/
-├── package.json
-├── .env.local                         # OpenAI API key (never commit!)
-├── .gitignore
-├── next.config.js
-├── vitest.config.js                   # Testing configuration
-│
-├── src/
-│   ├── app/
-│   │   ├── layout.js                  # Root layout
-│   │   ├── page.jsx                   # Home page
-│   │   └── analysis/
-│   │       └── page.jsx               # Analysis page
-│   │
-│   ├── components/
-│   │   ├── FileUpload.jsx
-│   │   ├── ErrorBoundary.jsx
-│   │   └── data/
-│   │       ├── DataPreview.jsx
-│   │       ├── QualityScore.jsx
-│   │       ├── AIInsights.jsx
-│   │       ├── DataVisualizations.jsx
-│   │       └── ColumnDetails.jsx
-│   │
-│   ├── lib/
-│   │   ├── dataAnalysis.js            # Core analysis logic
-│   │   └── aiIntegration.js           # OpenAI API integration
-│   │
-│   ├── styles/                         # CSS files (one per component)
-│   │   ├── globals.css                # CSS variables & resets
-│   │   ├── FileUpload.css
-│   │   ├── HomePage.css
-│   │   ├── DataPreview.css
-│   │   ├── QualityScore.css
-│   │   ├── AIInsights.css
-│   │   ├── DataVisualizations.css
-│   │   ├── ColumnDetails.css
-│   │   ├── AnalysisPage.css
-│   │   └── ErrorBoundary.css
-│   │
-│   └── test/
-│       ├── setup.js                   # Vitest setup
-│       └── __tests__/                 # Test files
-│
-└── public/
-    └── datasets/                      # Sample CSV files
-        ├── sample-sales.csv
-        └── sample-customers.csv
-Learning Objectives
-By completing this project, you will demonstrate:
+## Technology
 
-CCC.1.1: Problem identification and analysis
-CCC.1.2: Solution planning with technical challenges
-CCC.1.3: Implementation using industry best practices
-CCC.1.4: Testing with multiple user categories
-CCC.1.5: Professional documentation and communication
-Performance Targets
-Lighthouse Performance: ≥ 85
-Lighthouse Accessibility: ≥ 90
-First Contentful Paint: < 1.5s
-Time to Interactive: < 3s
-Bundle Size: < 500KB
-Accessibility Standards
-WCAG 2.1 AA Compliance
-Keyboard navigation support
-Screen reader compatibility
-Color contrast ≥ 4.5:1
-License
-MIT License - Educational use encouraged
+- Next.js 14 App Router
+- React 18
+- JavaScript / JSX
+- Papa Parse and ExcelJS for file parsing
+- Chart.js and react-chartjs-2 for charts
+- OpenAI Node SDK for server-side insights
+- CSS and Tailwind CSS
 
-Generated: 2025-11-15 Generator Version: 1.0.0# Next.js Test — Data Quality / Insights Demo
+## Requirements
 
-This repository is a small Next.js app for experimenting with data upload, parsing, and basic quality insights.
+- Node.js 24 (the version specified in `package.json`)
+- pnpm (recommended; the repository includes a pnpm lockfile)
+- An OpenAI API key for AI-generated insights
 
-## Quick Setup
+## Run locally
 
-- Node.js (v16+ recommended) and npm installed.
-- From the project root run:
+1. Clone the repository:
 
-```bash
-npm install
-```
+   ```bash
+   git clone https://github.com/Nlewi-glitch089/Data2-.git
+   cd Data2-
+   ```
 
-## Run (development)
+2. Install dependencies:
 
-```bash
-npm run dev
-```
+   ```bash
+   pnpm install
+   ```
 
-Open http://localhost:3000 in your browser.
+   npm is also available if you prefer the checked-in `package-lock.json`, but use one package manager consistently.
 
-## Build
+3. Create `.env.local` in the repository root and add your server-side OpenAI key:
 
-```bash
-npm run build
-```
+   ```dotenv
+   OPENAI_API_KEY=your_openai_api_key
+   ```
 
-## Notes about path aliases
+   Do not prefix this key with `NEXT_PUBLIC_`; it must remain server-side. Do not commit `.env.local`.
 
-This project uses a path alias `@` mapped to the `app` folder so imports like:
+4. Start the development server:
 
-```js
-import { parseFile } from "@/lib/fileProcessing";
-```
+   ```bash
+   pnpm dev
+   ```
 
-resolve to `app/lib/fileProcessing.js`.
+5. Open [http://localhost:3000](http://localhost:3000).
 
-If you prefer to use the project root for `@`, change `jsconfig.json` accordingly or update imports to relative paths.
+## Available commands
 
-## Troubleshooting
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start the Next.js development server |
+| `pnpm build` | Create a production build |
+| `pnpm start` | Start the production server after building |
+| `pnpm install` | Install dependencies |
 
-- If you see `Module not found: Can't resolve '@/lib/fileProcessing'`, ensure `jsconfig.json` contains:
+The repository does not currently define test, lint, or database migration scripts in `package.json`.
 
-```jsonc
-{
-	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": { "@/*": ["app/*"] }
-	}
-}
-```
+## Deploying to Vercel
 
-- If you still have issues, try deleting the `.next` cache and rebuilding:
+The repository includes a `vercel.json` configured for Next.js and pnpm.
 
-```bash
-rm -rf .next
-npm run build
-```
+1. Import this repository into [Vercel](https://vercel.com/new).
+2. Set the project root to the repository root.
+3. Use Node.js 24 and the configured pnpm install/build commands.
+4. Add `OPENAI_API_KEY` under Project Settings → Environment Variables. Keep it server-side; do not use a `NEXT_PUBLIC_` prefix.
+5. Deploy and verify file upload, preview, analysis, and the AI insights endpoint.
 
-## Project structure (important files)
+No verified public production URL is recorded in this README. Add the current Vercel Production domain after confirming the deployment works.
 
-- `app/` — Next.js app routes and components
-- `app/lib/fileProcessing.js` — CSV/JSON/Excel parsing helpers
-- `app/components/` — UI components for upload and data preview
+## Data handling and limitations
 
-If you want, I can also add a short contributing guide or CI step to run `npm run build` on push.
+- Uploaded data is parsed in the browser and held in session storage for the current browser session; it is not a user account or persistent cloud dataset library.
+- Remove sensitive or personally identifiable information from files before uploading.
+- AI insights require a valid server-side `OPENAI_API_KEY` and may incur API usage costs.
+- This repository is an evolving application. Confirm current behavior before describing features as production-ready.
+
+## Related planning material
+
+The project brief, wireframes, setup notes, and milestone documents are kept in this repository alongside the application code.
